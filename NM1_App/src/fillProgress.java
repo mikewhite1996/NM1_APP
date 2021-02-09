@@ -22,8 +22,6 @@ public class fillProgress {
 		  }
 	}
 	
-	
-	
 	public static void updateBar(int i, JProgressBar b){
 		b.setValue(i);
 	}

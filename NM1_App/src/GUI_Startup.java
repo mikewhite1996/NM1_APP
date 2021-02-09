@@ -40,24 +40,91 @@ public class GUI_Startup {
 	static int barProgress;
 	static fillProgress bar = new fillProgress();
 	static JTextField textFile = new JTextField(20);
+	static JTextField inv = new JTextField(20);
+	static JTextField portingLR = new JTextField(20);
+	static JTextField EID = new JTextField(20);
+	static JTextField SIN = new JTextField(20);
+	static JTextField provLR = new JTextField(20);
+	static JTextField creditCard = new JTextField(20);
+	static JTextField bankAcc = new JTextField(20);
+	
+	static JLabel invLabel = new JLabel("Inventory: ");
+	static JLabel portingLabel = new JLabel("Porting: ");
+	static JLabel EIDLabel = new JLabel("EIDS: ");
+	static JLabel SINLabel = new JLabel("SINS: ");
+	static JLabel provLRLabel = new JLabel("Provisioning: ");
+	static JLabel CCLabel = new JLabel("Credit Cards: ");
+	static JLabel bankLabel = new JLabel("Bank Accs: ");
+	JButton chooseFile=new JButton("Choose File");
+	JButton Submit=new JButton("Submit");
+	JLabel fileLabel = new JLabel("File Location: ");
 	static JFrame f=new JFrame();
 	String filePath = "C:/Users/mikew/Documents/";
+	String invPath = "C:/Users/mikew/Documents/";
+	String portingPath = "C:/Users/mikew/Documents/";
+	String EIDPath = "C:/Users/mikew/Documents/";
+	String provPath = "C:/Users/mikew/Documents/";
+	String CCPath = "C:/Users/mikew/Documents/";
+	String bankPath = "C:/Users/mikew/Documents/";
+	
 	ImageIcon logo;
 	JLabel pic;
 	static long startTime = System.currentTimeMillis();
 	public void GUI() throws IOException{
-		b.setBounds(135,220,100,20);
+		b.setBounds(135,320,100,20);
 		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		f.setTitle("NM1 Inventory Allocations");
-		JButton chooseFile=new JButton("Choose File");
-		JButton Submit=new JButton("Submit");
 		Submit.setBounds(290,150,75,20);
-		chooseFile.setBounds(135,175,100, 40);
+		chooseFile.setBounds(135,340,100, 40);
+		//
 		textFile.setBounds(85, 150, 200, 20);
 		textFile.setEditable(false);
-		JLabel fileLabel = new JLabel("File Location: ");
 		fileLabel.setBounds(20, 150, 100, 20);
 		fileLabel.setLabelFor(textFile);
+		
+		//inventory label
+		inv.setBounds(85,170,200,20);
+		invLabel.setBounds(20, 170, 100, 20);
+		invLabel.setLabelFor(inv);
+		inv.setEditable(false);
+		
+		//porting label
+		portingLR.setBounds(85,190,200,20);
+		portingLabel.setBounds(20, 190, 100, 20);
+		portingLabel.setLabelFor(portingLR);
+		portingLR.setEditable(false);
+		
+		//EID label
+		EID.setBounds(85,210,200,20);
+		EIDLabel.setBounds(20, 210, 100, 20);
+		EIDLabel.setLabelFor(EID);
+		EID.setEditable(false);
+		
+		//SIN label
+		SIN.setBounds(85,230,200,20);
+		SINLabel.setBounds(20, 230, 100, 20);
+		SINLabel.setLabelFor(SIN);
+		SIN.setEditable(false);
+		
+		//Provisioning label
+		provLR.setBounds(85,250,200,20);
+		provLRLabel.setBounds(20, 250, 100, 20);
+		provLRLabel.setLabelFor(provLR);
+		provLR.setEditable(false);
+		
+		//Credit Card label
+		creditCard.setBounds(85,270,200,20);
+		CCLabel.setBounds(20, 270, 100, 20);
+		CCLabel.setLabelFor(creditCard);
+		creditCard.setEditable(false);
+		
+		//Provisioning label
+		bankAcc.setBounds(85,290,200,20);
+		bankLabel.setBounds(20, 290, 100, 20);
+		bankLabel.setLabelFor(bankAcc);
+		bankAcc.setEditable(false);
+
+		
 		
 		chooseFile.addActionListener(new ActionListener(){
 			@Override
@@ -87,7 +154,21 @@ public class GUI_Startup {
 		});
 		f.add(b);
 		f.add(textFile);
-		f.add(fileLabel);          
+		f.add(fileLabel);
+		f.add(inv);
+		f.add(invLabel);
+		f.add(portingLR);
+		f.add(portingLabel);
+		f.add(EID);
+		f.add(EIDLabel);
+		f.add(SIN);
+		f.add(SINLabel);
+		f.add(provLR);
+		f.add(provLRLabel);
+		f.add(creditCard);
+		f.add(CCLabel);
+		f.add(bankAcc);
+		f.add(bankLabel);
 		f.add(Submit);//adding button in JFrame
 		f.add(chooseFile);
 		ImageLoader(); 
@@ -231,7 +312,7 @@ public class GUI_Startup {
 			barMessage = "Updates Completed";
 			barProgress = 100;
 			bar.update(barMessage, barProgress, b);
-			System.out.println();
+			
 		}
 	
 	}
