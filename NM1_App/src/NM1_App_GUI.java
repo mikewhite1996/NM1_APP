@@ -50,6 +50,7 @@ public class NM1_App_GUI{
 			try {
 				fillProgress bar = new fillProgress();
 				app.GUI();
+				System.out.print("test");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
