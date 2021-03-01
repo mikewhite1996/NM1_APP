@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -56,6 +57,11 @@ public class GUI_Startup {
 	static JLabel CCLabel = new JLabel("Credit Cards: ");
 	static JLabel bankLabel = new JLabel("Bank Accs: ");
 	JButton chooseFile=new JButton("Choose File");
+	JButton portingFile=new JButton("Choose File");
+	JButton EIDFile=new JButton("Choose File");
+	JButton provFile=new JButton("Choose File");
+	JButton CCFile=new JButton("Choose File");
+	JButton BankFile=new JButton("Choose File");
 	JButton Submit=new JButton("Submit");
 	JLabel fileLabel = new JLabel("File Location: ");
 	static JFrame f=new JFrame();
@@ -74,8 +80,8 @@ public class GUI_Startup {
 		b.setBounds(135,320,100,20);
 		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		f.setTitle("NM1 Inventory Allocations");
-		Submit.setBounds(290,150,75,20);
-		chooseFile.setBounds(135,340,100, 40);
+		Submit.setBounds(135,340,75,20);
+		chooseFile.setBounds(290,170,90,20);
 		//
 		textFile.setBounds(85, 150, 200, 20);
 		textFile.setEditable(false);
@@ -93,6 +99,7 @@ public class GUI_Startup {
 		portingLabel.setBounds(20, 190, 100, 20);
 		portingLabel.setLabelFor(portingLR);
 		portingLR.setEditable(false);
+		portingFile.setBounds(290,190,90,20);
 		
 		//EID label
 		EID.setBounds(85,210,200,20);
@@ -133,13 +140,21 @@ public class GUI_Startup {
 					FileSelection();
 				}
 			});
+		
+		portingFile.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+					FileSelection();
+				}
+			});
 	
 		
 		Submit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
 				try{
 					FileNameCheck();
-					writeExcel(filePath, textFile.getText(), "Updated");
+					//writeExcel(filePath, textFile.getText(), "Updated");
 					readExcel(filePath, textFile.getText(), "Updated");
 					Desktop.getDesktop().open(new File(filePath+textFile.getText()));
 					long elapsedTime = System.currentTimeMillis() - startTime;
@@ -171,12 +186,14 @@ public class GUI_Startup {
 		f.add(bankLabel);
 		f.add(Submit);//adding button in JFrame
 		f.add(chooseFile);
+		f.add(portingFile);
 		ImageLoader(); 
 		
 		f.setSize(400,500);//400 width and 500 height  
 		f.setLayout(null);//using no layout managers
 		f.setLocationRelativeTo(null);
-		f.setVisible(true);//making the frame visible  
+		f.setVisible(true);//making the frame visible
+		f.setResizable(false);
 	}
 	public static void FileSelection(){
 		JFileChooser chooser = new JFileChooser();
@@ -269,7 +286,7 @@ public class GUI_Startup {
 		
 		sheet.setAutoFilter(CellRangeAddress.valueOf("A1:E140000"));
 		
-		filterExcel(filePath, fileName, wb, sheet, "Test");
+		//filterExcel(filePath, fileName, wb, sheet, "Test");
 		
 		while (rows.hasNext())
 		{
@@ -278,26 +295,19 @@ public class GUI_Startup {
 			while (cells.hasNext())
 			{
 				cell=(XSSFCell) cells.next();
-				valueCell = row.getCell(3);
-				keyCell = row.getCell(2);
+				valueCell = row.getCell(0);
 				
 				String value = valueCell.getStringCellValue().trim();
-				String key = keyCell.getStringCellValue().trim();
-					  
-				//Putting key & value in dataMap
-				//dataMap.put(key, value);
-					  
-				//Putting dataMap to excelFileMap
-				//excelFileMap.put("DataSheet", dataMap);
+
+				
+				hashMapExcel(row.getRowNum(), value);
 				  
 				switch(cell.getCellType()){
 				case STRING:
-					if(cell.getStringCellValue().equals("Test")){
+					if(cell.getCellType() != null){
 						
 					}
-					else if(cell.getStringCellValue().equals("Cell")){
-		
-					}else{
+					else{
 						throw new ExcelDataFormatError("Incorrect Data Format", f);
 					}
 					break;
@@ -327,7 +337,7 @@ public class GUI_Startup {
 	}
 	
 	public static void FileNameCheck() throws FileNameException{
-		if(textFile.getText().equals("JavaBooks.xlsx")){
+		if(textFile.getText().equals("Inventory_Test.xlsx")){
 			System.out.print("correct");
 		}
 		else{
@@ -335,37 +345,24 @@ public class GUI_Startup {
 		}
 	}
 	
-	
-/*	public static Map<String, Map<String, String>> setMapData(String filePath, String fileName, String sheetName) throws IOException{
-		FileInputStream fis = new FileInputStream(filePath+fileName);
-		
-		Workbook workbook = new XSSFWorkbook(fis);
-		
-		XSSFSheet sheet = (XSSFSheet) workbook.getSheetAt(0);
-		int lastRow = sheet.getLastRowNum();
-		
-		 for(int i=0; i<=lastRow; i++){
-			  
-			  Row row = sheet.getRow(i);
-			  
-			  //1st Cell as Value
-			  Cell valueCell = row.getCell(1);
-				  
-			  //0th Cell as Key
-			  Cell keyCell = row.getCell(0);
-				  
-			  String value = valueCell.getStringCellValue().trim();
-			  String key = keyCell.getStringCellValue().trim();
-				  
-			  //Putting key & value in dataMap
-			  dataMap.put(key, value);
-				  
-			  //Putting dataMap to excelFileMap
-			  excelFileMap.put("DataSheet", dataMap);
-		  }
-		  
-		return excelFileMap; 
-		
-	} */
+	public static void hashMapExcel(int key, String value){
+			Hashtable<Integer, String> modelNum = new Hashtable();
+			modelNum.put(key, value);
+			System.out.println(modelNum);
+		}
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
